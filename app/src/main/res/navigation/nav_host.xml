@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_host"
+    app:startDestination="@id/wordListFragment">
+
+    <fragment
+        android:id="@+id/wordListFragment"
+        android:name="ru.godsonpeya.dontforget.ui.wordlist.WordListFragment"
+        android:label="WordListFragment" >
+        <action
+            android:id="@+id/action_wordListFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:popUpTo="@id/wordListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="ru.godsonpeya.dontforget.ui.detail.DetailFragment"
+        android:label="DetailFragment" >
+        <action
+            android:id="@+id/action_detailFragment_to_wordListFragment"
+            app:destination="@id/wordListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>
