@@ -1,7 +1,6 @@
-package ru.godsonpeya.dontforget.ui.wordlist
+package ru.godsonpeya.dontforget.ui.categorylist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,54 +12,55 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import ru.godsonpeya.dontforget.R
 import ru.godsonpeya.dontforget.WordsApplication
-import ru.godsonpeya.dontforget.databinding.FragmentWordListBinding
+import ru.godsonpeya.dontforget.databinding.FragmentCategoryListBinding
 import ru.godsonpeya.dontforget.entity.Category
 
 
-class WordListFragment : Fragment() {
-    private lateinit var binding: FragmentWordListBinding
+class CategoryListFragment : Fragment() {
+    private lateinit var binding: FragmentCategoryListBinding
     private lateinit var adapter: CategoryListAdapter
     private lateinit var viewModel: CategoryViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentWordListBinding.inflate(inflater, container, false)
+        binding = FragmentCategoryListBinding.inflate(inflater, container, false)
         val wordApp = requireContext().applicationContext as WordsApplication
 
-        adapter = CategoryListAdapter()
+        adapter = CategoryListAdapter(OnItemClickListener {
+            it.let {
+                viewModel.onClickCategory(it)
+            }
+        })
         binding.recyclerview.adapter = adapter
 
-        viewModel = ViewModelProvider(viewModelStore, WordViewModelFactory(wordApp.repository)).get(
-            CategoryViewModel::class.java
-        )
+        viewModel =
+            ViewModelProvider(viewModelStore, CategoryViewModelFactory(wordApp.repository)).get(
+                CategoryViewModel::class.java
+            )
         binding.viewModel = viewModel
 
-        viewModel.navigateToDetail.observe(viewLifecycleOwner, {
+        viewModel.navigateToShowDetail.observe(viewLifecycleOwner, {
             it?.let {
-                this.findNavController().navigate(R.id.action_wordListFragment_to_detailFragment)
+                this.findNavController()
+                    .navigate(CategoryListFragmentDirections.actionCategoryListFragmentToDetailFragment(it))
                 viewModel.navigationDone()
             }
         })
+
+        viewModel.navigateToDetail.observe(viewLifecycleOwner, {
+            it?.let {
+                this.findNavController()
+                    .navigate(CategoryListFragmentDirections.actionCategoryListFragmentToDetailFragment(null))
+                viewModel.navigationDone()
+            }
+        })
+
         viewModel.categories.observe(viewLifecycleOwner, {
             it?.let {
                 adapter.submitList(it)
             }
         })
-
-        viewModel.allCategoryWithParams.observe(viewLifecycleOwner,{
-            it?.let {
-                it.forEach { list ->
-                    Log.d(WordListFragment::class.simpleName, "****************************")
-                    Log.d(WordListFragment::class.simpleName, list.category?.name.toString())
-                    list.parameters.forEach{parameter ->
-                        Log.d(WordListFragment::class.simpleName, parameter.name.toString() +" : " + parameter.value.toString())
-                    }
-                    Log.d(WordListFragment::class.simpleName, "****************************")
-                }
-            }
-        })
-
         inTouchMove()
 
         return binding.root

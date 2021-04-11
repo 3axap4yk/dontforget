@@ -11,17 +11,20 @@ interface CategoryDao {
     @Insert
     fun insert(category: Category)
 
+    @Update
+    fun update(category: Category)
+
     @Query("DELETE FROM category")
     fun deleteAll()
 
     @Delete
     fun deleteWord(category: Category)
 
-    @get:Query("SELECT * from category ORDER BY name ASC")
+    @get:Query("SELECT * from category ORDER BY next_time DESC")
     val allCategories: LiveData<List<Category>>
 
     @Transaction
-    @Query("SELECT * from category ORDER BY name ASC")
+    @Query("SELECT * from category ORDER BY next_time DESC")
     fun allCategoriesWithParamaters(): LiveData<List<CategoryWithParameter>>
 
 //    @Query("SELECT * from word_table ORDER BY word ASC")

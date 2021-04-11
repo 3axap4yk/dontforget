@@ -6,7 +6,7 @@
     <data>
     <variable
         name="viewModel"
-        type="ru.godsonpeya.dontforget.ui.wordlist.CategoryViewModel" />
+        type="ru.godsonpeya.dontforget.ui.categorylist.CategoryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

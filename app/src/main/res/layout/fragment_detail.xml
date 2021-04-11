@@ -15,18 +15,26 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@color/black"
-            android:hint="@string/hint_word">
-
+            android:hint="@string/hint_category"
+            android:textColorHint="@color/black">
             <com.google.android.material.textfield.TextInputEditText
-                android:background="@color/colorPrimaryLight"
-                android:textColorHint="@color/white"
-                android:id="@+id/edit_word"
+                android:id="@+id/edit_category"
                 style="@style/text_view_style"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryLight"
+                android:textColorHint="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dataPicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryLight"
+            android:padding="15dp"
+            android:text="@string/choose_date"
+            android:textSize="25sp" />
 
         <Button
             android:id="@+id/button_save"

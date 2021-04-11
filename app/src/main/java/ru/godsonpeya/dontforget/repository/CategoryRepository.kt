@@ -18,6 +18,12 @@ class CategoryRepository(private val categoryDao: CategoryDao) {
         }
     }
 
+    suspend fun update(category: Category) {
+        withContext(Dispatchers.IO) {
+            categoryDao.update(category)
+        }
+    }
+
     suspend fun deleteOne(category: Category) {
         withContext(Dispatchers.IO) {
             categoryDao.deleteWord(category)

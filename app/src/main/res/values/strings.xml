@@ -2,7 +2,9 @@
     <string name="app_name">DontForget</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="hint_word">Word...</string>
-    <string name="button_save">Save</string>
+    <string name="hint_category">Категория…</string>
+    <string name="button_save">Сохранить</string>
     <string name="empty_not_saved">Word not saved because it is empty.</string>
+    <string name="choose_date">Выберите дату</string>
+    <string name="notification_channel_description">notification_channel_description</string>
 </resources>
